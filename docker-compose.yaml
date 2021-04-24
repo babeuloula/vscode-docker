@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+    code-server:
+        image: codercom/code-server:latest
+        user: "${DOCKER_UID}:${DOCKER_GID}"
+        env_file:
+            - .env
+        environment:
+            - VIRTUAL_HOST=${DOMAINS}
+            - LETSENCRYPT_HOST=${DOMAINS}
+            - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+            - VIRTUAL_PORT=${VSCODE_PORT}
+        volumes:
+            - ./config:/home/coder/.config
+            - ./local:/home/coder/.local
+            - ./projects:/home/coder/projects
+        ports:
+            - "${VSCODE_PORT}:8080"
+        restart: unless-stopped
+
+networks:
+    default:
+        external:
+            name: ${NETWORK}

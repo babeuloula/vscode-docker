@@ -1,0 +1,10 @@
+/config/*
+!/config/.gitkeep
+
+/local/*
+!/local/.gitkeep
+
+/projects/*
+!/projects/.gitkeep
+
+/.env
